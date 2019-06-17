@@ -1,0 +1,76 @@
+821     npaf
+10      ndx
+192840  ndt (hours in 1/1/2000-12/31/2013 = 122736; 1/1/2001-12/31/2013 = 113952; 1/1/2001-12/31/2012 = 105192)
+3600	dtis
+1984	iyear 
+100      imax
+0.001    eps
+1        storageR 1,0
+3000     Khss_all		cal (scale, recession 100's to 1000's; limited by Ksat&kdecay)
+10.1284326716 Khgw_all		cal (scale, recession, maybe 1/10 Khss; limited by Ksat&kdecay)
+15.5187995929 k_all			cal (scale, peakiness, 1 to 10)
+3.0      n_ch_all		
+1.0      ksat_all		cal (critical, 0.01 to 10)
+1.0      decay_all		cal (critical, 0.1 to 2; larger = less Qbase)
+1.0      soilD_all		cal (water balance, larger --> more time for ET)
+1.0      et_all
+1.0      satmc_all
+0.02     setfsub_rate		used to set initial river Q's
+0.0      setfsurf_rate		used to set initial river Q's
+2.0      k_min
+10.0     k_max  10.0 
+0.025    n_ch_min
+10.0     n_ch_max
+0.5      ksat_min (cm/hr)      										
+1.0      ksat_max (cm/hr)
+320      soilD_min (cm)
+321      soilD_max (cm)
+0.30     satmc_min
+0.45     satmc_max
+0.001    Lch_min_slope
+0.1      Lch_max_slope
+0.01     Lp_min_slope
+0.20     Lp_max_slope
+0.15     min_rz_sm
+1        dataMethod
+1.956    0.438    a_w_ch
+0.413    0.592    b_w_ch
+0.0347   0.022    a_Q_ch
+0.9519   0.958    b_Q_ch
+0.25     RC1m			cal (dry, less runoff, 0 to 1; but can be about 10, max (RC2m x C) = 1.0)
+0.70      RC2m			cal (non-dry, runoff, 0 to 1; but can be about 10, max (RC2m x C) = 1.0)
+0.40      s_tip			cal (used to define dry, 0 to 1)
+1.0      ss_tip			cal (recession, 0 to 1)
+0.5      ss_part		        cal (recession, 0 to 1)
+1       calnum
+100     run ID 
+3        calvalpro, cal=1, val=2, future=0, livne=3 
+0        GCM model ID (1 to 10)
+0        GCM RCP setting 45 or 85; use 0 for historical runs
+1000.0   Khss_all_min
+6000.0   Khss_all_max		
+10.0    Khgw_all_min
+200.0    Khgw_all_max		
+1.0     k_all_min
+20.0     k_all_max					
+0.01    ksat_all_min
+5.0    ksat_all_max		        
+1.0     kdecay_all_min
+1.0     kdecay_all_max
+1.0     soilD_all_min
+1.0     soilD_all_max
+0.0979138547271 b_in
+0.6     usoilD  unit m
+1.0     lsoilD  unit m
+0.000356196953925 Ds
+4.05989717552e-05 Dm  ft/h
+0.999442547089 Ws t/h
+22.5         cc   10 = b from Clapp and Hornberger
+0.005        b_in_min
+0.1          b_in_max
+0.00005      Ds_min
+0.0001       Ds_max
+0.0009       Dm_min
+0.0015        Dm_max
+0.92          Ws_min
+1.0          Ws_max
