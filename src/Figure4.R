@@ -1,0 +1,63 @@
+# library(ProjectTemplate)
+# library(zoo)
+# setwd("D:/HydroUncertainty")
+# load.project()
+Q_gauge = read.table('data/usgsdata_cal.txt',header=FALSE)*0.3048^3*3600*24/21.7/1000   # 21.7 km2 for 11119750  cfs to mm/d
+Q_gauge[Q_gauge<0]=NA
+dates = as.Date(c(1:10957),origin="1983-12-31")
+z0 <- aggregate(zoo(Q_gauge[1:10957,3]), cut(dates,'month'), sum)
+
+NLDAS_SR = read.table('data/sr_mmpm_NLDASVIC_1984.txt',header=T)
+NLDAS_SS = read.delim('data/ss_mmpm_NLDASVIC_1984.txt',header=T)
+NLDAS_SR$sum = rowMeans(NLDAS_SR)
+NLDAS_SS$sum = rowMeans(NLDAS_SS)
+VIC_SR = read.table('data/surface_runoff_mmpm_1984_VIC_ex_new.txt',header=T)
+VIC_SS = read.table('data/subsurface_runoff_mmpm_1984_VIC_ex_new.txt',header=T)
+VIC_SR$sum=rowMeans(VIC_SR)
+VIC_SS$sum=rowMeans(VIC_SS)
+STP_SR = read.table('data/surface_runoff_mmpm_1984_STP_ex.txt',header=T)
+STP_SS = read.table('data/subsurface_runoff_mmpm_1984_STP_ex.txt',header=T)
+STP_SR$sum=rowMeans(STP_SR)
+STP_SS$sum=rowMeans(STP_SS)
+RCM_SR = read.table('data/surface_runoff_mmpm_1984_RCM_ex.txt',header=T)
+RCM_SS = read.table('data/subsurface_runoff_mmpm_1984_RCM_ex.txt',header=T)
+RCM_SR$sum=rowMeans(RCM_SR)
+RCM_SS$sum=rowMeans(RCM_SS)
+mon = rep(1:12,length.out=264)
+t=c(11:12,1:10)
+
+z1 <- aggregate(zoo(NLDAS_SR$sum), mon, mean)
+z2 <- aggregate(zoo(NLDAS_SS$sum), mon, mean)
+z3 <- aggregate(zoo(VIC_SR$sum), mon, mean)
+z4 <- aggregate(zoo(VIC_SS$sum), mon, mean)
+z5 <- aggregate(zoo(STP_SR$sum), mon, mean)
+z6 <- aggregate(zoo(STP_SS$sum),mon, mean)
+z7 <- aggregate(zoo(RCM_SR$sum), mon, mean)
+z8 <- aggregate(zoo(RCM_SS$sum), mon, mean)
+ 
+#tiff("graphs/figure4.tiff", 
+  #   height = 10, width = 15, units = 'cm', res = 1200)
+windows(6,4)
+#windows(7,7)
+#par(mfrow=c(2,2))
+par(mar=c(1,3.6,1.1,1.1),mgp=c(2.0,0.4,0),family = "serif")
+#par(mfrow=c(3,2))
+plot(c(1:12),coredata(z3)[t],col='blue',lty=1,type='l',ylim=c(0,80),xaxt="n",xlab='',ylab='Runoff (mm/month)',
+     frame.plot = FALSE,axes=FALSE,font.lab=2,lwd=1.5)
+lines(c(1:12),coredata(z4)[t],col='blue',lty=2,lwd=1.5)
+lines(c(1:12),coredata(z5)[t],col='darkgreen',lty=1,lwd=1.5)
+lines(c(1:12),coredata(z6)[t],col='darkgreen',lty=2,lwd=1.5)
+lines(c(1:12),coredata(z7)[t],col='red',lty=1,lwd=1.5)
+lines(c(1:12),coredata(z8)[t],col='red',lty=2,lwd=1.5)
+#lines(c(1:12),aggregate(zoo(coredata(z0)[1:264]), mon, mean)[t],lwd=2)
+lines(c(1:12),coredata(z1)[t],col='black',lty=1,lwd=1.5)
+lines(c(1:12),coredata(z2)[t],col='black',lty=2,lwd=1.5)
+legend('topright',c('VIC-HRR-SR','VIC-HRR-SS','STP-HRR-SR','STP-HRR-SS','RCM-HRR-SR','RCM-HRR-SS',
+                    'NLDAS-VIC-SR','NLDAS-VIC-SS'),lwd=1.5,
+       col=c('blue','blue','darkgreen','darkgreen', 'red','red','black','black'),
+       lty=c(1,2,1,2,1,2,1,2),ncol=2,bty='n',cex=0.8)
+axis(side=1, pos = 0,cex.axis=1.0,tck=-0.01,at=c(1:12), 
+     labels=c("Nov","Dec","Jan",'Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct'),family = 'serif')
+axis(side=2, cex.axis=1.0,tck=-0.01,family = 'serif')
+abline(h=0)
+#dev.off()
