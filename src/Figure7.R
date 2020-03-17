@@ -7,9 +7,9 @@ data = read.table(data_txt, header = FALSE)
 uncertainty_txt = 'cache/q100_uncertainty.txt'
 uncertaity = read.table(uncertainty_txt, header = FALSE)*100.0   # to percent
 for(i in 1:nrow(uncertaity)){uncertaity[i,11]=100-sum(uncertaity[i,1:10])}
-tiff("graphs/figure7.tiff", 
-     height = 17.7, width = 22.9, units = 'cm', res = 1200)
-#windows(9,7)
+#tiff("graphs/figure7.tiff", 
+     #height = 17.7, width = 22.9, units = 'cm', res = 1200)
+windows(9,7)
 par(mfrow=c(2,1))
 par(mar=c(1,2,0.5,1.0),mgp=c(2.2,0.8,0),family='serif')
 
@@ -39,4 +39,4 @@ legend('top',legtxt,col=c('black','orange','darkseagreen2','blue','purple','gray
        bty='n',lty=1,lwd=2)
 legend('topright','(b)', bty="n", text.font=2,cex=1.2,horiz = TRUE)
 
-dev.off()
+#dev.off()
